@@ -12,7 +12,7 @@ inputs:
   docker_compose_template:
     description: "Local path to the docker-compose.override.yml template"
     required: true
-  server_host:
+  ip_server:
     description: "Remote server IP or hostname"
     required: true
   server_user:
@@ -48,7 +48,7 @@ runs:
     - name: Create remote secrets directory
       uses: appleboy/ssh-action@v1
       with:
-        host: ${{ inputs.server_host }}
+        host: ${{ inputs.ip_server }}
         username: ${{ inputs.server_user }}
         key: ${{ inputs.ssh_private_key }}
         script: |
@@ -59,7 +59,7 @@ runs:
     - name: Copy docker-compose.override.yml to remote server
       uses: appleboy/scp-action@v1
       with:
-        host: ${{ inputs.server_host }}
+        host: ${{ inputs.ip_server }}
         username: ${{ inputs.server_user }}
         key: ${{ inputs.ssh_private_key }}
         port: ${{ inputs.ssh_port }}
