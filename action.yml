@@ -21,7 +21,7 @@ inputs:
   ssh_private_key:
     description: "Private SSH key to authenticate with the remote server"
     required: true
-  remote_secrets_path:
+  docker_compose_override_path:
     description: "Remote directory where docker-compose.override.yml will be placed"
     required: true
   ssh_port:
@@ -54,8 +54,8 @@ runs:
         username: ${{ inputs.user_ssh }}
         key: ${{ inputs.ssh_private_key }}
         script: |
-          mkdir -p "${{ inputs.remote_secrets_path }}"
-          chmod 700 "${{ inputs.remote_secrets_path }}"
+          mkdir -p "${{ inputs.docker_compose_override_path }}"
+          chmod 700 "${{ inputs.docker_compose_override_path }}"
         port: ${{ inputs.ssh_port }}
 
     - name: Copy docker-compose.override.yml to remote server
@@ -66,5 +66,5 @@ runs:
         key: ${{ inputs.ssh_private_key }}
         port: ${{ inputs.ssh_port }}
         source: "docker-compose.override.yml"
-        target: "${{ inputs.remote_secrets_path }}"
+        target: "${{ inputs.docker_compose_override_path }}"
         strip_components: 0
