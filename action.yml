@@ -44,6 +44,7 @@ runs:
       run: |
         export GIT_HASH_COMMIT="${{ inputs.git_hash_commit }}"
         envsubst '${GIT_HASH_COMMIT}' < "${{ inputs.docker_compose_template }}" > docker-compose.override.yml
+      shell: bash
 
     - name: Create remote secrets directory
       uses: appleboy/ssh-action@v1
